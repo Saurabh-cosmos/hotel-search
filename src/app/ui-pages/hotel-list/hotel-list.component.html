@@ -1,55 +1,71 @@
-<div class="container mx-100vh">
-    <h2 class="text-center mb-4 mt-1">{{ hotelData.locationName }} Hotels</h2>
-    <div class="row overflow-scroll">
-      <div class="col-md-4" *ngFor="let hotel of hotelData.hotels">
-        <div class="card mb-4 shadow-sm">
-          <img src="{{ hotel.heroImage }}" class="card-img-top" alt="{{ hotel.name }}">
-          <div class="card-body">
-            <h5 class="card-title">{{ hotel.name }}</h5>
-            <p class="card-text">
-              <strong>Rate:</strong> ${{ hotel.rate.total / 100 }}<br>
-              <strong>Rating:</strong> {{ hotel.starRating }} stars
-            </p>
-            <button type="button" class="btn btn-primary" (click)="openModal(hotel)">View Details</button>
-          </div>
+<div class="container mt-5">
+    <h2 class="text-center mb-4">{{ hotelData.locationName }} Hotels</h2>
+    <div *ngIf="isLoading" class="text-center">
+        <div class="spinner-border text-primary" role="status">
         </div>
-      </div>
     </div>
-  
-    <!-- Modal -->
-    <div class="modal fade" id="hotelDetailsModal" tabindex="-1" aria-labelledby="hotelDetailsModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="hotelDetailsModalLabel">{{ selectedHotel?.name }}</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <div class="row">
-              <div class="col-md-6">
-                <img [src]="selectedHotel?.heroImage" class="img-fluid mb-3" alt="{{ selectedHotel?.name }}">
-              </div>
-              <div class="col-md-6">
-                <p>
-                  <strong>Address:</strong> {{ selectedHotel?.address }}<br>
-                  <strong>Distance:</strong> {{ selectedHotel?.distance }} km<br>
-                  <strong>User Reviews:</strong> {{ selectedHotel?.userReview.count }} reviews, {{ selectedHotel?.userReview.rating }} rating<br>
-                  <strong>Facilities:</strong>
-                </p>
-                <ul>
-                  <li *ngFor="let facility of selectedHotel?.facilities">{{ facility.name }}</li>
-                </ul>
-                <p>
-                  <strong>Rate:</strong> ${{ selectedHotel?.rate.total / 100 }} (Taxes: ${{ selectedHotel?.rate.taxes / 100 }})<br>
-                  <strong>Provider:</strong> {{ selectedHotel?.rate.provider }}
-                </p>
-              </div>
+    <div *ngIf="!isLoading">
+        <div class="row">
+            <div class="col-md-4" *ngFor="let hotel of hotelsToShow">
+                <div class="card mb-4 shadow-lg rounded">
+                    <img src="{{ hotel.heroImage }}" class="card-img-top" alt="{{ hotel.name }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ hotel.name }}</h5>
+                        <p class="card-text">
+                            <strong>Rate:</strong> ${{ hotel.rate.total / 100 }}<br>
+                            <strong>Rating:</strong> {{ hotel.starRating }} stars
+                        </p>
+                        <button type="button" class="btn btn-primary" (click)="openModal(hotel)">View Details</button>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          </div>
         </div>
-      </div>
+        <div class="text-center my-4">
+            <button class="btn btn-secondary" (click)="loadMoreHotels()" [disabled]="isLoadingMore">Load More&nbsp;
+                <div *ngIf="isLoadingMore" class="spinner-border spinner-border-sm text-primary ml-2" role="status">
+                </div>
+            </button>
+
+        </div>
     </div>
-  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="hotelDetailsModal" tabindex="-1" aria-labelledby="hotelDetailsModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="hotelDetailsModalLabel">{{ selectedHotel?.name }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <img [src]="selectedHotel?.heroImage" class="img-fluid mb-3" alt="{{ selectedHotel?.name }}">
+                    </div>
+                    <div class="col-md-6">
+                        <p>
+                            <strong>Address:</strong> {{ selectedHotel?.address }}<br>
+                            <strong>Distance:</strong> {{ selectedHotel?.distance }} km<br>
+                            <strong>User Reviews:</strong> {{ selectedHotel?.userReview.count }} reviews, {{
+                            selectedHotel?.userReview.rating }} rating<br>
+                            <strong>Facilities:</strong>
+                        </p>
+                        <ul>
+                            <li *ngFor="let facility of selectedHotel?.facilities">{{ facility.name }}</li>
+                        </ul>
+                        <p>
+                            <strong>Rate:</strong> ${{ selectedHotel?.rate.total / 100 }} (Taxes: ${{
+                            selectedHotel?.rate.taxes / 100 }})<br>
+                            <strong>Provider:</strong> {{ selectedHotel?.rate.provider }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
