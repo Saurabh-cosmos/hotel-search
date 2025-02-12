@@ -1,0 +1,60 @@
+
+:host {
+    display: block;
+    min-height: 100vh;
+    background-image: url('../../../assets/city3.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+.card {
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .card-img-top {
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .card-body {
+    padding: 1rem;
+  }
+  
+  .card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+  
+  .card-text {
+    font-size: 0.9rem;
+  }
+  
+  .modal-body {
+    padding: 2rem;
+  }
+  
+  .modal-body img {
+    border-radius: 10px;
+  }
+  
+  .modal-body p {
+    font-size: 1rem;
+  }
+  
+  .modal-body ul {
+    padding-left: 1.2rem;
+  }
+  
+  .modal-body ul li {
+    list-style-type: disc;
+  }
+
+  .mx-100vh {
+    max-height: 100vh;
+  }
+
+  .overflow-scroll{
+    max-height: 100vh;
+  }

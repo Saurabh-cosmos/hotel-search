@@ -1,0 +1,62 @@
+<div class="container mt-5">
+    <div class="card shadow-lg rounded">
+      <div class="card-body">
+        <h3 class="card-title text-center text-primary mb-4">Hotel Search</h3>
+        <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+          <!-- Location Field -->
+          <div class="form-group">
+            <label for="location" class="font-weight-bold text-secondary">Location</label>
+            <input id="location" type="text" pInputText formControlName="location" class="form-control form-control-lg" placeholder="Enter location" />
+            <div *ngIf="searchForm.get('location')?.touched && searchForm.get('location')?.invalid" class="text-danger">
+              Location is required.
+            </div>
+          </div>
+  
+          <!-- From Date Field -->
+          <div class="form-group">
+            <label for="fromDate" class="font-weight-bold text-secondary">From Date</label>
+            <p-calendar id="fromDate" placeholder="CheckIn Date" formControlName="fromDate" dateFormat="dd-mm-yy" [showIcon]="true" class="form-control form-control-lg full-width"
+            [minDate]="today"></p-calendar>
+            <div *ngIf="searchForm.get('fromDate')?.touched && searchForm.get('fromDate')?.invalid" class="text-danger">
+              Check-in date is required.
+            </div>
+          </div>
+  
+          <!-- To Date Field -->
+          <div class="form-group">
+            <label for="toDate" class="font-weight-bold text-secondary">To Date</label>
+            <p-calendar id="toDate" placeholder="CheckOut Date" formControlName="toDate" dateFormat="dd-mm-yy" [showIcon]="true" class="form-control form-control-lg full-width"
+            [minDate]="getCheckOutMinDate()"></p-calendar>
+            <div *ngIf="searchForm.get('toDate')?.touched && searchForm.get('toDate')?.invalid" class="text-danger">
+              Check-out date is required.
+            </div>
+          </div>
+  
+          <!-- Passenger Count Field -->
+          <div class="form-group">
+            <label for="passengerCount" class="font-weight-bold text-secondary">Passenger Count</label>
+            <input id="passengerCount" placeholder="Enter Passenger Count" type="number" pInputText formControlName="passengerCount" class="form-control form-control-lg" min="1" />
+            <div *ngIf="searchForm.get('passengerCount')?.touched && searchForm.get('passengerCount')?.invalid" class="text-danger">
+              Passenger count must be at least 1.
+            </div>
+          </div>
+  
+          <!-- Rooms Count Field -->
+          <div class="form-group">
+            <label for="roomsCount" class="font-weight-bold text-secondary">Rooms Count</label>
+            <input id="roomsCount" placeholder="Enter Rooms Count" type="number" pInputText formControlName="roomsCount" class="form-control form-control-lg" min="1" />
+            <div *ngIf="searchForm.get('roomsCount')?.touched && searchForm.get('roomsCount')?.invalid" class="text-danger">
+              Rooms count must be at least 1.
+            </div>
+          </div>
+  
+          <!-- Search Button -->
+          <div class="form-group text-center">
+            <button type="submit" pButton label="Search" class="btn btn-primary btn-lg btn-block" [disabled]="searchForm.invalid" [loading]="submitLoader">
+              <i class="pi pi-search"></i> Search
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
